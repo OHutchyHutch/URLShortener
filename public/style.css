@@ -1,0 +1,24 @@
+:root {
+    --primary: rgb(70, 69, 69);
+    --secondary: whitesmoke;
+}
+body {
+    background-color: var(--primary);
+    color: var(--secondary);
+}
+input{
+    background-color: var(--primary)  !important;
+    border-top-width: 0em  !important;
+    border-left-width: 0em  !important;
+    border-right-width: 0em  !important;
+    text-align: center  !important;
+    font-size: 2em;
+    color: var(--secondary) !important;
+}
+tr, th {
+    color: var(--secondary) !important;
+    font-size: 1.2em !important;
+}
+a {
+    font-size: 1.2em !important;
+}

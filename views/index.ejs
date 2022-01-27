@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="font/bootstrap-icons.css"/>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row my-5 text-center">
+            <div class="col">
+                <h1>URL Shortener</h1>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <form action="/create/shortUrl" method="POST" class="my-4 form-inline">
+                    <label for="fullURL" class="visually-hidden">Url</label>
+                    <div class="row my-4">
+                        <input required type="url" name="createURL" id="createURL" placeholder="URL" class="col-12 mr-2">
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-6 text-center">
+                            <button class="btn btn-success" type="submit" style="font-size: 1.5em;">Shrink</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <table class="table table-striped table-responsive">
+            <thead>
+                <tr>
+                    <th>Full URL</th>
+                    <th>Short URL</th>
+                    <th class="text-center">Clicks</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% shortUrls.forEach(shortUrl => { %>
+                    <% if (shortquery == shortUrl.short && shortquery != null) { %>
+                        <tr>
+                            <td><a href="<%= shortUrl.full %>"><%= shortUrl.full %></a></td>
+                                <form action="/editsave/<%= shortUrl.short %>" method="POST">
+                                    <td><input name="shortURLedit" id="shortURLedit" placeholder="<%= shortUrl.short %>" value="<%= shortUrl.short %>" class="form-control mr-2"></td>
+                                    <td class="text-center"><a><%= shortUrl.clicks %></a></td>
+                                    <td><button class="btn btn-primary" type="submit">Save</button></td>
+                                </form>
+                        </tr>
+                    <% }  else { %>
+                        <tr>
+                            <td><a href="<%= shortUrl.full %>"><%= shortUrl.full %></a></td>
+                            <td><a href="<%= shortUrl.short %>"><%= shortUrl.short %></a></td>
+                            <td class="text-center"><a><%= shortUrl.clicks %></a></td>
+                            <td style="width:10%;">
+                                <div class="row">
+                                    <div class="col">
+                                        <form action="/edit/<%= shortUrl.short %>" method="POST">
+                                            <input name="editURL" id="editURL" class="visually-hidden" placeholder="<%= shortUrl.short %>">
+                                            <button class="btn" type="submit" >
+                                                <i class="bi bi-pencil-square" style="color: #0069d9; font-size: 1.3em"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="col">
+                                        <form action="/delete/<%= shortUrl.short %>" method="POST">
+                                            <input name="deleteURL" id="deleteURL" class="visually-hidden" placeholder="<%= shortUrl.short %>">
+                                            <button class="btn" type="submit">
+                                                <i class="bi bi-trash" style="color: #c82333; font-size: 1.3em"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    <% } %>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+    
+    <script language="javascript" src="js/bootstrap.min.js"></script>
+</body>
+</html>
